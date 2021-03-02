@@ -32,7 +32,7 @@ namespace Lab01.Domain.Tests
 
             // act
             // assert
-            Assert.Throws<ArgumentException>(() => sut = new Playlist(name));
+            sut.Invoking(s => new Playlist(name)).Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace Lab01.Domain.Tests
             sut.AddSong(song);
 
             // assert
-            Assert.Same(song, sut.GetSong()[0]);
+            sut.GetSong()[0].Should().BeSameAs(song);
         }
         [Fact]
         public void Playlist_Can_Add_Song()
@@ -58,7 +58,7 @@ namespace Lab01.Domain.Tests
             sut.AddSong(new Song("sest", "t"));
 
             // assert
-            Assert.Equal(1, sut.GetSong()?.Count);
+            sut.GetSong().Count.Should().Be(1);
         }
         [Fact]
         public void Playlist_Can_Have_Emty_List()
@@ -70,8 +70,8 @@ namespace Lab01.Domain.Tests
 
 
             // assert
-            Assert.NotNull(sut.GetSong());
-            Assert.Equal(0, sut.GetSong()?.Count);
+            sut.GetSong().Should().NotBeNull();
+            sut.GetSong().Should().BeEmpty();
         }
 
         [Fact]
@@ -84,8 +84,8 @@ namespace Lab01.Domain.Tests
             sut.AddSong(new Song("sest", "Abba"));
 
             // assert
-            Assert.NotNull(sut.GetSong());
-            Assert.Equal(0, sut.GetSong()?.Count);
+            sut.GetSong().Should().NotBeNull();
+            sut.GetSong().Should().BeEmpty();
         }
 
         [Fact]
@@ -102,8 +102,8 @@ namespace Lab01.Domain.Tests
             sut.ClearSong();
 
             // assert
-            Assert.NotNull(sut.GetSong());
-            Assert.Equal(0, sut.GetSong()?.Count);
+            sut.GetSong().Should().NotBeNull();
+            sut.GetSong().Should().BeEmpty();
         }
         [Fact]
         public void Duplicate_Song_Silently_ignors()
@@ -119,8 +119,8 @@ namespace Lab01.Domain.Tests
 
 
             // assert
-            Assert.NotNull(sut.GetSong());
-            Assert.Equal(2, sut.GetSong()?.Count);
+            sut.GetSong().Should().NotBeNull();
+            sut.GetSong().Should().HaveCount(2);
         }
         [Fact]
         public void New_Song_Name_have_curent_Year_front()
@@ -133,7 +133,7 @@ namespace Lab01.Domain.Tests
 
 
             // assert
-            Assert.NotNull(sut.GetSong());
+            sut.GetSong().Should().NotBeNull();
             sut.GetSong()[0].Name.Should().Be(DateTime.Now.Year + " " + "test");
         }
 
@@ -152,7 +152,7 @@ namespace Lab01.Domain.Tests
 
 
             // assert
-            Assert.NotNull(sut.GetSong());
+            sut.GetSong().Should().NotBeNull();
             sut.GetSong()[0].Name.Should().Be("2021 test1");
             sut.GetSong()[1].Name.Should().Be("2021 test2");
             sut.GetSong()[2].Name.Should().Be("2021 test3");
