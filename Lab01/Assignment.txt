@@ -15,6 +15,6 @@ Can retrieve a list of unique artists in the playlist.          ******
 
 Bonus:
 
-Adding song raises song added event.
-Removing song raises song removed event.
+Adding song raises song added event.                            ******
+Removing song raises song removed event.                        ******
 Playlist is kept sorted by release date, then artist, then title.

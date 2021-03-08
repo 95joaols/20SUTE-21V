@@ -10,6 +10,10 @@ namespace Lab01.Domain
         public string Title { get; set; }
         public bool IsActive { get; set; } = true;
 
+        public event EventHandler NewSong;
+        public event EventHandler DelietedSong;
+
+
         private SortedSet<Song> song = new SortedSet<Song>();
 
         public Playlist(string title)
@@ -27,6 +31,7 @@ namespace Lab01.Domain
             {
                 Newsong.Name = DateTime.Now.Year + " " + Newsong.Name;
                 song.Add(Newsong);
+                NewSong?.Invoke(this, EventArgs.Empty);
                 return this;
             }
             return this;
@@ -45,6 +50,7 @@ namespace Lab01.Domain
         public Playlist ClearSong()
         {
             song.Clear();
+            DelietedSong?.Invoke(this, EventArgs.Empty);
             return this;
         }
         public ReadOnlyCollection<Song> GetSong()

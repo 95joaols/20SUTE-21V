@@ -177,7 +177,7 @@ namespace Lab01.Domain.Tests
         public void Get_Unick_Artist()
         {
             // arrange
-            var sut = new Playlist("New List")
+            Playlist sut = new Playlist("New List")
             .AddSong(new Song("test", "noob"))
             .AddSong(new Song("test2", "noob"))
             .AddSong(new Song("test3", "noob1"))
@@ -188,6 +188,36 @@ namespace Lab01.Domain.Tests
 
             // assert
             result.Should().HaveCount(3);
+        }
+
+        [Fact]
+        public void I_Get_A_Event_When_I_Add_Song()
+        {
+            //arrange
+            Playlist sut = new Playlist("New List");
+            bool eventRun = false;
+            sut.NewSong += (e, t) => eventRun = true;
+
+            //act
+            sut.AddSong(new Song("tt", "a"));
+
+            //assert
+            eventRun.Should().BeTrue();
+        }
+        [Fact]
+        public void I_Get_A_Event_When_I_Revove_Song()
+        {
+            //arrange
+            Playlist sut = new Playlist("New List");
+            sut.AddSong(new Song("tt", "a"));
+            bool eventRun = false;
+            sut.DelietedSong += (e, t) => eventRun = true;
+
+            //act
+            sut.ClearSong();
+
+            //assert
+            eventRun.Should().BeTrue();
         }
     }
 }
