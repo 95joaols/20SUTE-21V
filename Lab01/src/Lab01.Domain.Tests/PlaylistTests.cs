@@ -2,13 +2,17 @@
 using Xunit;
 using FluentAssertions;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Lab01.Domain.Tests
 {
     public class PlaylistTests
     {
+        private List<Song> songsSaved = new List<Song>();
+
+
         [Fact]
-        public void Playlist_should_be_active()
+        public void playlist_should_be_active()
         {
             // arrange
 
